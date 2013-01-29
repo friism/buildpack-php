@@ -74,6 +74,8 @@ curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 cp $BP_DIR/conf/php.ini $BUILD_DIR
 cp $BP_DIR/conf/php.ini $PHP_PATH/php.ini
 
+php --ini
+
 # Install composer
 if [[ -f $PROJECT_ROOT/composer.json ]]; then
     if [[ ! -f $PROJECT_ROOT/composer.phar ]]; then
