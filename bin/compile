@@ -85,10 +85,14 @@ if [[ -f $PROJECT_ROOT/composer.json ]]; then
         curl -s https://getcomposer.org/installer | $PHP_PATH/bin/php -c $BP_DIR/conf/php.ini -- --install-dir=$PROJECT_ROOT
     fi
 
+    GIT_DIR_ORIG=$GIT_DIR
+    unset GIT_DIR
+ 
     $PHP_PATH/bin/php $PROJECT_ROOT/composer.phar install --prefer-source $COMPOSER_INSTALL_ARGS -n -d $PROJECT_ROOT/ | indent
 
     # Clean the Image
     rm $PROJECT_ROOT/composer.phar
+    export GIT_DIR=$GIT_DIR_ORIG
 fi
 
 if [[ $PAAS_VENDOR = "cloudControl" ]]; then
