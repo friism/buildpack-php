@@ -15,41 +15,11 @@
 # limitations under the License.
 # for documentation of the directives see http://httpd.apache.org/docs/2.2/mod/directives.html
 
-clean(){
-    if [[ "$phppid" ]]; then
-        kill -TERM -$phppid
-        unset phppid
-    fi
-    if [[ "$apachepid" ]]; then
-        kill -TERM -$apachepid
-        unset apachepid
-    fi
-    kill -TERM 0
-}
-trap clean INT TERM EXIT
-
-if [[ "$PAAS_VENDOR" = "cloudControl" ]]; then
-    let serverlimit=SIZE+1
-    let threads=8
-    MPM_CONF=/app/apache/conf/local/worker-mpm.conf
-    mkdir -p $(dirname $MPM_CONF)
-
-    cat > $MPM_CONF <<EOF
-<IfModule worker.c>
-    ServerLimit $serverlimit
-    StartServers 1
-    MaxClients $(( serverlimit*threads ))
-    MinSpareThreads 2
-    MaxSpareThreads $threads
-    ThreadsPerChild $threads
-</IfModule>
-EOF
-fi
-
-# FIXME detect abnormal php-fpm exit
-php5-fpm --fpm-config /app/php/php-fpm.ini &
-phppid=$!
-apache2 -f /app/apache/conf/httpd.conf -D FOREGROUND &
-apachepid=$!
-wait $apachepid
-
+touch /app/apache/logs/error_log
+touch /app/apache/logs/access_log
+tail -F /app/apache/logs/error_log &
+tail -F /app/apache/logs/access_log &
+export LD_LIBRARY_PATH=/app/php/ext
+export PHP_INI_SCAN_DIR=/app/www
+echo "Launching apache"
+exec /app/apache/bin/httpd -DNO_DETACH
