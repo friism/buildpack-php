@@ -82,13 +82,13 @@ export LD_LIBRARY_PATH
 if [[ -f $PROJECT_ROOT/composer.json ]]; then
     if [[ ! -f $PROJECT_ROOT/composer.phar ]]; then
 	echo "-----> Installing Composer"
-        curl -s https://getcomposer.org/installer | $PHP_PATH/bin/php -c $BP_DIR/conf/php.ini -- --install-dir=$PROJECT_ROOT
+        curl -s https://getcomposer.org/installer | php -c $BP_DIR/conf/php.ini -- --install-dir=$PROJECT_ROOT
     fi
 
     GIT_DIR_ORIG=$GIT_DIR
     unset GIT_DIR
  
-    $PHP_PATH/bin/php $PROJECT_ROOT/composer.phar install --prefer-source $COMPOSER_INSTALL_ARGS -n -d $PROJECT_ROOT/ | indent
+    php $PROJECT_ROOT/composer.phar install --prefer-source $COMPOSER_INSTALL_ARGS -n -d $PROJECT_ROOT/ | indent
 
     # Clean the Image
     rm $PROJECT_ROOT/composer.phar
