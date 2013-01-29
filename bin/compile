@@ -74,7 +74,7 @@ curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 PATH=$PATH:$$PHP_PATH/bin
 export PATH
 LD_LIBRARY_PATH=$PHP_PATH/ext
-echo "ld_lib: $LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH
 
 # Install composer
 if [[ -f $PROJECT_ROOT/composer.json ]]; then
