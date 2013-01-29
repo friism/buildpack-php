@@ -73,7 +73,7 @@ curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
 cp $BP_DIR/conf/php.ini $PHP_PATH/bin/php.ini
 
-PATH=$PATH:$$PHP_PATH/bin
+PATH=$PATH:$PHP_PATH/bin
 export PATH
 LD_LIBRARY_PATH=$PHP_PATH/ext
 export LD_LIBRARY_PATH
