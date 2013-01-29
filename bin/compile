@@ -184,7 +184,7 @@ EOF
 fi
 
 cp $BP_DIR/conf/php-fpm.ini $PHP_PATH
-cp $BP_DIR/conf/php.ini $PHP_PATH/conf/010_php.ini
+cp $BP_DIR/conf/php.ini $PHP_PATH/php.ini
 
 if [ -d /etc/php5/conf.d/ ]; then
   for f in /etc/php5/conf.d/*.ini; do
