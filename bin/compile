@@ -197,9 +197,6 @@ if [ -d .buildpack/php/conf ]; then
 fi
 
 cp $BP_DIR/conf/httpd.conf $APACHE_PATH/conf
-if [ -d .buildpack/apache/conf ]; then
-    cp .buildpack/apache/conf/* $APACHE_PATH/conf/user
-fi
 
 if [[ $PAAS_VENDOR = "cloudControl" ]]; then
     echo "[APC]" > $PHP_PATH/conf/cctrl_apc.ini
