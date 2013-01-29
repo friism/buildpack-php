@@ -186,9 +186,11 @@ fi
 cp $BP_DIR/conf/php-fpm.ini $PHP_PATH
 cp $BP_DIR/conf/php.ini $PHP_PATH/conf/010_php.ini
 
-for f in /etc/php5/conf.d/*.ini; do
-    cp $f $PHP_PATH/conf/000_`basename $f`;
-done
+if [ -d /etc/php5/conf.d/ ]; then
+  for f in /etc/php5/conf.d/*.ini; do
+      cp $f $PHP_PATH/conf/000_`basename $f`;
+  done
+fi
 
 if [ -d .buildpack/php/conf ]; then
     cp .buildpack/php/conf/*.ini $PHP_PATH/conf/
