@@ -75,7 +75,7 @@ cp $BP_DIR/conf/php.ini $BUILD_DIR/php.ini
 cp $BP_DIR/conf/php.ini ./php.ini
 cp $BP_DIR/conf/php.ini $PHP_PATH/php.ini
 
-php --ini
+php -i
 
 # Install composer
 if [[ -f $PROJECT_ROOT/composer.json ]]; then
