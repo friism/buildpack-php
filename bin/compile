@@ -71,7 +71,7 @@ PHP_URL="https://s3.amazonaws.com/php-lp/php-$PHP_VERSION.tar.gz"
 echo "-----> Bundling PHP version $PHP_VERSION"
 curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
-cp $BP_DIR/conf/php.ini $PHP_PATH/php.ini
+cp $BP_DIR/conf/php.ini $PHP_PATH/bin/php.ini
 
 PATH=$PATH:$$PHP_PATH/bin
 export PATH
@@ -82,7 +82,7 @@ export LD_LIBRARY_PATH
 if [[ -f $PROJECT_ROOT/composer.json ]]; then
     if [[ ! -f $PROJECT_ROOT/composer.phar ]]; then
 	echo "-----> Installing Composer"
-        curl -s https://getcomposer.org/installer | $PHP_PATH/bin/php -c $BP_DIR/conf/php.ini -- --install-dir=$PROJECT_ROOT
+        curl -s https://getcomposer.org/installer | $PHP_PATH/bin/php -c $BP_DIR/conf/php.ini -- --install-dir=$PROJECT_ROOT --prefer-source
     fi
 
     $PHP_PATH/bin/php $PROJECT_ROOT/composer.phar install $COMPOSER_INSTALL_ARGS -n -d $PROJECT_ROOT/ | indent
