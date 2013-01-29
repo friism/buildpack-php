@@ -32,6 +32,9 @@ function clean_directory() {
     mkdir $1
 }
 
+APACHE_VERSION="2.2.22"
+PHP_VERSION="5.3.10"
+
 BIN_DIR=$(readlink -f $(dirname $0))
 BUILD_DIR=$1
 BP_DIR=$(readlink -f $(dirname $BIN_DIR))
@@ -58,6 +61,15 @@ mkdir -p $APACHE_PATH/conf/{share,local,user}
 mkdir -p $PHP_PATH/{box,conf,logs}
 
 cp $BP_DIR/support/boot.sh .
+
+# install apache and php
+APACHE_URL="https://s3.amazonaws.com/php-lp/apache-$APACHE_VERSION.tar.gz"
+echo "-----> Bundling Apache version $APACHE_VERSION"
+curl --silent --max-time 60 --location "$APACHE_URL" | tar xz
+
+PHP_URL="https://s3.amazonaws.com/php-lp/php-$PHP_VERSION.tar.gz"
+echo "-----> Bundling PHP version $PHP_VERSION"
+curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
 # Install composer
 if [[ -f $PROJECT_ROOT/composer.json ]]; then
