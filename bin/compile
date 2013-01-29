@@ -71,7 +71,8 @@ PHP_URL="https://s3.amazonaws.com/php-lp/php-$PHP_VERSION.tar.gz"
 echo "-----> Bundling PHP version $PHP_VERSION"
 curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
-cp $BP_DIR/conf/php.ini $BUILD_DIR
+cp $BP_DIR/conf/php.ini $BUILD_DIR/php.ini
+cp $BP_DIR/conf/php.ini ./php.ini
 cp $BP_DIR/conf/php.ini $PHP_PATH/php.ini
 
 php --ini
